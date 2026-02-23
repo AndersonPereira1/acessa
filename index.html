@@ -211,7 +211,7 @@ footer{height:80px;}
 <p style="color:#00a650;">ou 12x de R$ 8,99 sem juros</p>
 <p style="color:#00a650;font-weight:bold;">🚚 Frete grátis</p>
 
-<a class="botao botao-principal" onclick="somClique()" href="#">
+<a class="botao botao-principal" onclick="somClique()" href="https://mercadolivre.com/sec/1q3WKuG">
 ⚡ COMPRAR AGORA
 </a>
 
@@ -274,11 +274,11 @@ document.getElementById("barra").style.width=(estoque*3.7)+"%";
 },20000);
 
 /* NOTIFICAÇÃO */
-var nomes=["Carlos","Mariana","João","Fernanda","Lucas","Ana","Pedro","Juliana"];
+var nomes=["Emanuela","Gabriel","\Anderson","Fernanda","Lucas","Ana","Pedro","Juliana"];
 function mostrarNotificacao(){
 var nome=nomes[Math.floor(Math.random()*nomes.length)];
 var n=document.getElementById("notificacao");
-n.innerHTML="🛒 <strong>"+nome+"</strong> acabou de comprar!";
+n.innerHTML="🛒 <strong>"+nome+"</strong> \Acabou de comprar!";
 n.style.display="block";
 setTimeout(function(){n.style.display="none";},4000);
 }
@@ -289,6 +289,7 @@ setInterval(mostrarNotificacao,12000);
 </body>
 
 </html>
+
 
 
 
