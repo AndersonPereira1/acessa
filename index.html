@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oferta Especial</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#ebebeb;
+}
+
+/* TOPO */
+.topo{
+    background:#ffe600;
+    padding:15px;
+    text-align:center;
+    font-weight:bold;
+    font-size:20px;
+}
+
+/* LAYOUT */
+.wrapper{
+    max-width:1200px;
+    margin:30px auto;
+    display:flex;
+    gap:20px;
+}
+
+.produto, .compra{
+    background:white;
+    padding:25px;
+    border-radius:8px;
+}
+
+.produto{flex:2;}
+.compra{flex:1; box-shadow:0 4px 15px rgba(0,0,0,0.1);}
+
+/* TIMER */
+.timer{
+    background:#3483fa;
+    color:white;
+    padding:8px;
+    text-align:center;
+    border-radius:6px;
+    font-weight:bold;
+}
+
+/* PREÇO */
+.preco{
+    font-size:32px;
+    color:#00a650;
+    font-weight:bold;
+}
+
+/* PROGRESSO ESTOQUE */
+.progress{
+    background:#ddd;
+    height:10px;
+    border-radius:5px;
+    margin-top:5px;
+    overflow:hidden;
+}
+.progress-bar{
+    height:10px;
+    background:red;
+    width:100%;
+    transition:0.5s;
+}
+
+/* BOTÕES INSANOS */
+.botao{
+    position:relative;
+    display:block;
+    text-align:center;
+    padding:18px;
+    margin-top:15px;
+    border-radius:10px;
+    font-size:18px;
+    text-decoration:none;
+    font-weight:bold;
+    overflow:hidden;
+    transition:0.3s;
+    animation:pulseGlow 2s infinite, shake 3s infinite;
+    cursor:pointer;
+}
+
+.botao-principal{
+    background:#3483fa;
+    color:white;
+}
+
+.botao-secundario{
+    background:#00a650;
+    color:white;
+}
+
+/* BRILHO */
+.botao::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.6),transparent);
+}
+.botao:hover::before{
+    animation:shine 1s;
+}
+@keyframes shine{
+    0%{left:-100%;}
+    100%{left:100%;}
+}
+
+/* HOVER */
+.botao:hover{
+    transform:translateY(-4px);
+    box-shadow:0 12px 25px rgba(0,0,0,0.3);
+}
+
+/* GLOW */
+@keyframes pulseGlow{
+    0%{box-shadow:0 0 0 rgba(52,131,250,0.7);}
+    50%{box-shadow:0 0 20px rgba(52,131,250,0.7);}
+    100%{box-shadow:0 0 0 rgba(52,131,250,0.7);}
+}
+
+/* TREMER */
+@keyframes shake{
+    0%,100%{transform:translateX(0);}
+    2%{transform:translateX(-2px);}
+    4%{transform:translateX(2px);}
+    6%{transform:translateX(-2px);}
+    8%{transform:translateX(2px);}
+    10%{transform:translateX(0);}
+}
+
+/* CLIQUE */
+.botao:active{
+    transform:scale(0.92);
+}
+
+/* NOTIFICAÇÃO */
+.notificacao{
+    position:fixed;
+    bottom:90px;
+    left:20px;
+    background:white;
+    padding:12px 18px;
+    border-radius:8px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.2);
+    font-size:14px;
+    display:none;
+}
+
+.barra-fixa{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    background:#3483fa;
+    padding:15px;
+    text-align:center;
+}
+.barra-fixa a{
+    color:white;
+    font-size:20px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+footer{height:80px;}
+</style>
+</head>
+
+<body>
+
+<div class="topo">
+🟡 MERCADO LIVRE - OFERTA IMPERDÍVEL 🟡
+</div>
+
+<div class="wrapper">
+
+<div class="produto">
+
+<div class="timer">
+⏳ Oferta termina em: <span id="contador"></span>
+</div>
+
+<h2>Nome do Produto</h2>
+<img src="SUA-IMAGEM.jpg" width="100%">
+
+<p>🔥 <span id="vendidos">134</span> vendidos hoje</p>
+<p>👀 <span id="visitando">18</span> pessoas vendo agora</p>
+
+<p style="color:red;font-weight:bold;">
+⚠️ Restam <span id="estoque">27</span> unidades!
+</p>
+
+<div class="progress">
+<div class="progress-bar" id="barra"></div>
+</div>
+
+</div>
+
+<div class="compra">
+
+<p class="preco">R$ 89,90</p>
+<p style="color:#00a650;">ou 12x de R$ 8,99 sem juros</p>
+<p style="color:#00a650;font-weight:bold;">🚚 Frete grátis</p>
+
+<a class="botao botao-principal" onclick="somClique()" href="#">
+⚡ COMPRAR AGORA
+</a>
+
+<a class="botao botao-secundario" onclick="somClique()" href="#">
+🛒 ADICIONAR AO CARRINHO
+</a>
+
+</div>
+
+</div>
+
+<div id="notificacao" class="notificacao"></div>
+
+<div class="barra-fixa">
+<a href="#">🚀 FINALIZAR COMPRA</a>
+</div>
+
+<footer></footer>
+
+<audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
+
+<script>
+
+/* SOM */
+function somClique(){
+document.getElementById("clickSound").play();
+}
+
+/* TIMER */
+var tempo=1200;
+setInterval(function(){
+var m=Math.floor(tempo/60);
+var s=tempo%60;
+document.getElementById("contador").innerHTML=m+"m "+s+"s";
+tempo--;
+if(tempo<0) tempo=0;
+},1000);
+
+/* VENDAS */
+setInterval(function(){
+var v=document.getElementById("vendidos");
+v.innerHTML=parseInt(v.innerHTML)+1;
+},15000);
+
+/* VISUALIZANDO */
+setInterval(function(){
+document.getElementById("visitando").innerHTML=
+Math.floor(Math.random()*15)+10;
+},5000);
+
+/* ESTOQUE + BARRA */
+var estoque=27;
+setInterval(function(){
+if(estoque>5){
+estoque--;
+document.getElementById("estoque").innerHTML=estoque;
+document.getElementById("barra").style.width=(estoque*3.7)+"%";
+}
+},20000);
+
+/* NOTIFICAÇÃO */
+var nomes=["Carlos","Mariana","João","Fernanda","Lucas","Ana","Pedro","Juliana"];
+function mostrarNotificacao(){
+var nome=nomes[Math.floor(Math.random()*nomes.length)];
+var n=document.getElementById("notificacao");
+n.innerHTML="🛒 <strong>"+nome+"</strong> acabou de comprar!";
+n.style.display="block";
+setTimeout(function(){n.style.display="none";},4000);
+}
+setInterval(mostrarNotificacao,12000);
+
+</script>
+
+</body>
+</html>
